@@ -1,0 +1,153 @@
+1) He can use traffic Padding which involves insertion of bits into gaps in a data stream to frustate traffic analysis attempts . One such practice is adding a Variable padding length which makes things difficult for the attackers . Example , if the cipher block length is 16B and if the plaintext plus MAC plus padding length byte is 75 bytes long,then the padding length (in bytes) can be 5, 21, 37, and so on, up to 165.Here we can see there are multiple options for padding bits .
+
+
+2) a) Change Cipher spec protocol is applied in phase 4 of the Handshake protocol . The Change Cipher Spec Protocol is one of the four TLS-specific protocols that use the TLS Record Protocol. This protocol consists of a single message .
+   b) The primary purpose of the single message is to cause the pending state to be copied into the current state,which updates the cipher suite to be used on this connection. 
+
+3) Network security can be applied to both types of data . For "Data at rest" , encryption techniques can be used such as RSA,RC4 and for the "Data in motion" , we can make use of Transport level security in which different key exchange methods such as Anonymous Diffie–Hellman , Ephemeral Diffie–Hellman , RSA key exchange to falicitate the encryption method in use , we can also make use of HTTPS , secure shell(SSH).
+
+4) No, because someone can impersonate as someone else . 
+
+5) STARTTLS: It is an SMTP extension thats provides authentication, integrity, non-repudiation (via digital signatures) and confidentiality (via encryption)for the entire SMTP message by running SMTP over TLS.
+S/MIME: Provides authentication, integrity, non-repudiation (via digital signatures) and confidentiality (via encryption) of the message body carried in SMTP messages.
+DNS Security Extensions (DNSSEC): Provides authentication and integrity protection of DNS data, and is an underlying tool used by various e-mail security protocols.
+DNS-based Authentication of Named Entities (DANE): Is designed to overcome problems in the certificate authority (CA) system by providing an alternative channel for authenticating public keys based on DNSSEC, with the result that the same trust relationships used to certify IP addresses are used to certify servers operating on those addresses.
+SPF(Sender Policy Framework): Use DNS to allow domain owners to create records that associate the domain name with a specific IP address range of authorized message senders.
+DomainKeys Identified Mail (DKIM) : Enables an MTA to sign selected Headers and the body of a message. This validates the source domain of the mail and provides message body integrity.
+Domain-based Message Authentication, Reporting, and Conformance (DMARC): Lets senders know the proportionate effectiveness of their SPF and DKIM policies, and signals to receivers what action should be taken in various individual and bulk attack scenarios.
+
+6) esp : transport  , tls : application , mime : application
+
+
+7) He should use dynamic ports because port selection process is carried out by the OS . So, it is more of a random selection which can help in preventing any type of attack.
+
+8) Secure Remote Procedure call because it authenticates both the host and the user which is making a requesting the service .
+
+9) a) Ticket life time will tell us about the time upto which the ticket is valid , in other words it informs client of the lifetime of the ticket , also it helps in preventing replay attack after ticket has expired. 
+b) For kerberos v4 , Lifetime values is 8-bit quantity in units of five minutes . So , maximum lifetime that can be expressed is (2^8)x5 = 1280 minutes .
+c) 1280 minutes was the upper bound in v4 , which may be inadequate for those applications which run for longer period time. Hence, in version 5 , tickets include an explicit start time and end time which allow tickets with arbitrary lifetimes.
+
+
+10) a) confidentiality 
+b) denial of services
+c) authenticity
+d) Integrity
+
+11) 
+rule A : This is for the incoming packet , source ip address should be external , destination ip address should be internal . Here , external refers to the ip addr of the router and internal refers to the addresses of the devices that are sharing internet from the same router . It must be a TCP packet , src port no. must be greater than 1023 and dest_port should be 25 . If every condition holds good then the packet must be permitted to pass through. This rule permits incoming packets from the sender's SMTP client to our own SMTP server . 
+rule B : This is for the outgoing packet , source ip address should be internal , destination ip address should be external . It must be a TCP packet , src port no. should be 25 and dest_port no. should be more than 1023 . If every condition holds good then the packet must be permitted to pass through. This rule permits the responses from our own server back to the sender's client . 
+rule C : This is for the outgoing packet , source ip address should be internal , destination ip address should be external . It must be a TCP packet , src port no. must be greater than 1023 and dest_port should be 25 . If every condition holds good then the packet must be permitted to pass through. This rule permits outgoing packets from our own SMTP client to someone else's SMTP server .
+rule D : This is for the incoming packet , source ip address should be external , destination ip address should be internal . It must be a TCP packet , src port no. should be 25 and dest_port no. should be more than 1023 . If every condition holds good then the packet must be permitted to pass through. This rule permits the response packets from some else's server back to our own client 
+rule E : It is telling us anything other than above rules should be denied permission to pass through.
+
+
+
+12) Packet1 : Permitted , rule A is followed , using the fact that  The user end of the connection is on a TCP port number above 1023 and dest port is 25 and protocol is TCP .
+Packet2 : Permitted , rule B is followed , Dest port is given to be 1234 (>1023) . Also , it an outgoing packet so src port should be 25. Protocol is TCP .
+Packet3 : Permitted , rule C is followed , dest port is 25 , also it an outgoing packet  and protocol is TCP
+Packet4 : Permitted , rule D is followed , dest port is 1357(>1023) , it an incoming packet so src port is 25 and protocol is TCP.
+
+
+
+13) zeus - trojan
+ryuk - randomware
+stuxnet - worm
+sun - supply 
+mirai ddos
+xmrig crypto
+
+14) Version : Immutable
+Internet Header Length(IHL) : Immutable
+DSCP : Mutable (zeroed prior to ICV calculation)
+ECN : Mutable (zeroed prior to ICV calculation)
+Total length : Immutable
+
+Identification : Immutable
+Flags : Mutable (zeroed prior to ICV calculation)
+Fragment offset : Mutable (zeroed prior to ICV calculation)
+
+Time to live : Mutable (zeroed prior to ICV calculation)
+Protocol : Immutable
+Header Checksum : Mutable (zeroed prior to ICV calculation)
+
+Source Address : Immutable
+
+Destination Address (with loose or strict source routing) : Mutable but predictable
+Destination Address (without loose or strict source routing) : Immutable
+
+
+
+
+
+2.1)
+a) Client first sends msg to Authentication server(AS) . This message consists of (IDc || IDtgs || TS1)
+b) This message is not encrypted because authentication server (AS) knows the passwords of all users and stores these in a centralized database. User first requests a ticket-granting ticket (Ticket_tgs) from the AS. Also , TGS, issues tickets to users who have been authenticated to AS. Because only the correct user should know the password, only the correct user can recover the ticket , hence this msg is not needed to be encrypted.
+c) The primary aim for sending this msg is that the client can use this ticket to request multiple service-granting tickets. So instead of entering password everytime , the user requires access to a new service, the client applies to the TGS, using the ticket to authenticate itself. The TGS then grants a ticket for the particular service. The client saves each service-granting ticket and uses it to authenticate its user to a server each time a particular service is requested.
+
+d) In version 4, (IDc || IDtgs || TS) : 
+IDc - Tells AS identity of user from this client.
+IDtgs - Tells AS that user requests access to TGS.
+TS - Allows AS to verify that client’s clock is synchronized with that of AS.
+
+In version 5 , ( Options || IDc || Realmc || IDtgs || Times || Nonce )
+Options -  Used to request that certain flags be set in the returned ticket.
+IDc - Tells AS identity of user from this client.
+Realm - Indicates realm of user.(A Kerberos realm is a set of managed nodes that share the same Kerberos database)
+IDtgs - Tells AS that user requests access to TGS.
+Times : It consists of 3 sub-fields : from , till , rtime . from contains desired start time . till contains expiration time . rtime contains requested renew-till time . (their significances are explained in ques 9 )
+Nonce : A random value to be repeated in the upcoming msgs to assure that the response is fresh and has not been replayed by an opponent.
+
+
+
+
+2.2 ) VXJBKg
+Characters of the string should be first numbers according to base64 index . So , V = 21 , X = 23 , J = 9 , B = 1 , K = 10, g = 32 .
+Binary string corresponding to this : 010101 | 0101111 | 001001 | 000001 | 001010 | 100000 . i.e. 0101010101111001001000001001010100000 .
+Now , Taking 8-8 bits are mapped it to the Ascii value chart .  
+we get , first 8 bits 01010101 = 85 : U
+Second 8 bits 01110010 = 114 : r
+next 8 bits  01000001 = 65 : A
+next 8 bits 00101010 = 42 : * 
+We would be having 4 extra bits 0000 after all this , that must be added to binary string while encoding to complete the 6-6 bit partitions uniformly . 
+So , decoded string is UrA* 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
